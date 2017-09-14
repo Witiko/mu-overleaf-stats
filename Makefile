@@ -1,6 +1,6 @@
-WEBPAGES=/www/lemma/projekty/mubeamer/index.html \
-         /www/lemma/projekty/muletter/index.html
+SHELL=/bin/bash
 PARALLEL=/packages/run.64/parallel-20130822/bin/parallel
+WEBPAGES=/www/lemma/projekty/mu{beamer,letter}/index.html
 JOBS=1
 SLEEP=1s
 
@@ -10,7 +10,7 @@ all: stats
 	git push &>/dev/null
 
 urls: $(WEBPAGES)
-	set -e; for FNAME in $(WEBPAGES); do \
+	set -e; for FNAME in $^; do \
 	  xmllint -html -xpath "//a[contains(@class, 'overleaf')]/@href" - <$$FNAME 2>/dev/null; \
 	done | sed -r 's/ href="([^"]*)"/\1\n/g' | sort -u >$@
 
