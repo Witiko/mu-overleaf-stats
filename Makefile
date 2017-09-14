@@ -6,6 +6,8 @@ SLEEP=1s
 
 .PHONY: all stats
 all: stats
+	git commit -m 'added '`date --rfc-3339=date`' results' &>/dev/null
+	git push &>/dev/null
 
 urls: $(WEBPAGES)
 	set -e; for FNAME in $(WEBPAGES); do \
