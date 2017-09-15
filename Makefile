@@ -1,11 +1,13 @@
 SHELL=/bin/bash
 PARALLEL=/packages/run.64/parallel-20130822/bin/parallel
-WEBPAGES=/www/lemma/projekty/mu{beamer,letter}/index.html
+WEBPAGES=/www/lemma/projekty/mubeamer/index.html \
+         /www/lemma/projekty/muletter/index.html
 JOBS=1
 SLEEP=1s
 
 .PHONY: all stats
 all: stats
+	git add stats
 	git commit -m 'added '`date --rfc-3339=date`' results' &>/dev/null
 	git push &>/dev/null
 
