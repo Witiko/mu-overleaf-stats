@@ -21,5 +21,5 @@ stats: urls
 	  URL={}; \
 	  printf "%s\t%d\n" `date --rfc-3339=date` `curl -s $$URL \
 	    | xmllint -html -xpath "//div[@id='\''views_and_shares'\'']/a/text()" - 2>/dev/null \
-	    | sed -r -n "/[^ ]/s/ *([0-9]*) views */\1/p" - 2>/dev/null` >stats/$${URL##*/}; \
+	    | sed -r -n "/[^ ]/s/ *([0-9]*) views */\1/p" - 2>/dev/null` >>stats/$${URL##*/}; \
 	  sleep $(SLEEP)' :::: $<
