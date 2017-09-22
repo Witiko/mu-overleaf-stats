@@ -2,6 +2,7 @@ import datetime
 import itertools
 import matplotlib.pyplot as plt
 from matplotlib.dates import MonthLocator, DayLocator, DateFormatter
+from os import mkdir
 
 # Retrieve the relation between projects, workplaces, and overleaf
 # document ids.
@@ -21,6 +22,10 @@ palette = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),
            (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),    
            (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),    
            (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]
+try:
+    mkdir("plots")
+except OSError:
+    pass
 for project, workplaces in projects.items():
     fig, ax = plt.subplots(figsize=(16, 10))
     fig.suptitle(project)
