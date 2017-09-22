@@ -1,5 +1,7 @@
 import datetime
 import itertools
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.dates import MonthLocator, DayLocator, DateFormatter
 from os import mkdir
