@@ -54,5 +54,6 @@ for project, workplaces in projects.items():
     plt.legend([handle for handle, workplace in sorted_handles],
                [workplace for handle, workplace in sorted_handles],
                title="Workplaces")
+    fig.autofmt_xdate()
     fig.savefig("plots/%s.svg" % project)
     fig.savefig("plots/%s.pdf" % project)
