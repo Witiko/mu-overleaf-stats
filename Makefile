@@ -6,7 +6,7 @@ WEBPAGES=/www/lemma/projekty/mubeamer/index.html \
 JOBS=1
 SLEEP=1s
 
-.PHONY: all stats
+.PHONY: all git_push plot stats
 all: stats
 	git add stats
 	git commit -m 'added '`date --rfc-3339=date`' results' &>/dev/null
