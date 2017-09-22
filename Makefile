@@ -14,16 +14,20 @@ all: stats
 	git push &>/dev/null
 	$(PYTHON) ./plot.py
 
-urls: $(WEBPAGES) static_urls
-	sed -n '/^\s*#/!{s/#.*//;p}' <static_urls >$@
+urls: $(WEBPAGES)
 	set -e; for FNAME in $^; do \
-	  xmllint -html -xpath "//a[contains(@class, 'overleaf')]/@href" - <$$FNAME 2>/dev/null; \
-	done | sed -r 's/ href="([^"]*)"/\1\n/g' | sort -u >>$@
+	  xmllint -html -xpath "//a[contains(@class, 'overleaf')]/@*[name()='data-project' \
+                                                                     or name()='data-workplace' \
+                                                                     or name()='href']" \
+	          - <"$$FNAME" 2>/dev/null; \
+	done | sed -r -e 's/( (data-(project|workplace)|href)="([^"]*)"){3}/&\n/g' \
+             | sed -r -e 's/ (data-(project|workplace)|href)="([^"]*)"/\t\3/g' \
+             | sed 's/^\t//' | sort -u -k 2 >$@
 
 stats: urls
-	$(PARALLEL) --jobs=$(JOBS) --halt=2 -- '\
+	awk '{ print $$1 }' <$< | $(PARALLEL) --jobs=$(JOBS) --halt=2 -- '\
 	  URL={}; \
 	  printf "%s\t%d\n" `date --rfc-3339=date` `wget -q -O- $$URL \
 	    | xmllint -html -xpath "//div[@id='\''views_and_shares'\'']/a/text()" - 2>/dev/null \
 	    | sed -r -n "/[^ ]/s/ *([0-9]*) views */\1/p" - 2>/dev/null` >>stats/$${URL##*/}; \
-	  sleep $(SLEEP)' :::: $<
+	  sleep $(SLEEP)'

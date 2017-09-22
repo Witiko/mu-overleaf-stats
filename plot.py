@@ -10,9 +10,10 @@ from os import mkdir
 # document ids.
 projects = {}
 overleaf_ids = {}
-with open("descriptions", "rt") as descriptions:
+with open("urls", "rt") as descriptions:
     for line in descriptions:
-        overleaf_id, project, workplace = line.strip().split('\t')
+        overleaf_url, project, workplace = line.strip().split('\t')
+        overleaf_id = overleaf_url.split('/')[-1]
         if project not in projects:
             projects[project] = []
         projects[project].append(workplace)
