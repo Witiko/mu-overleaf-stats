@@ -1,4 +1,5 @@
 SHELL=/bin/bash
+PYTHON=PYTHONHASHSEED=12345 /home/xnovot32/miniconda3/bin/python3.6
 PARALLEL=/packages/run.64/parallel-20130822/bin/parallel
 WEBPAGES=/www/lemma/projekty/mubeamer/index.html \
          /www/lemma/projekty/muletter/index.html \
@@ -6,11 +7,12 @@ WEBPAGES=/www/lemma/projekty/mubeamer/index.html \
 JOBS=1
 SLEEP=1s
 
-.PHONY: all git_push plot stats
+.PHONY: all stats
 all: stats
 	git add stats
 	git commit -m 'added '`date --rfc-3339=date`' results' &>/dev/null
 	git push &>/dev/null
+	$(PYTHON) ./plot.py
 
 urls: $(WEBPAGES) static_urls
 	sed -n '/^\s*#/!{s/#.*//;p}' <static_urls >$@
