@@ -30,7 +30,7 @@ try:
 except OSError:
     pass
 for project, workplaces in projects.items():
-    fig, ax = plt.subplots(figsize=(16, 10))
+    fig, ax = plt.subplots(figsize=(15, 9))
     fig.suptitle(project)
     ax.xaxis.set_major_locator(MonthLocator())
     ax.xaxis.set_major_formatter(DateFormatter("%Y-%m-%d"))
@@ -61,7 +61,7 @@ for project, workplaces in projects.items():
                              key=lambda x: x[2], reverse=True)]
     plt.legend([handle for handle, workplace in sorted_handles],
                [workplace for handle, workplace in sorted_handles],
-               title="Workplaces")
+               title="Workplaces", loc=2)
     fig.autofmt_xdate()
     fig.savefig("plots/%s.svg" % project)
     fig.savefig("plots/%s.pdf" % project)
