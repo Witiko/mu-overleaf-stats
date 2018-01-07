@@ -11,7 +11,8 @@ SLEEP=1s
 all: stats
 	git add stats
 	git commit -m 'added '`date --rfc-3339=date`' results' &>/dev/null
-	git push &>/dev/null
+	git push origin master &>/dev/null
+	git push mirror master &>/dev/null
 	$(PYTHON) ./plot.py
 
 urls: $(WEBPAGES)
