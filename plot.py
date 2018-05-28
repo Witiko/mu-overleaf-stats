@@ -34,7 +34,7 @@ for project, workplaces in projects.items():
     fig.suptitle(project)
     ax.xaxis.set_major_locator(MonthLocator())
     ax.xaxis.set_major_formatter(DateFormatter("%Y-%m-%d"))
-    ax.xaxis.set_minor_locator(DayLocator())
+#   ax.xaxis.set_minor_locator(DayLocator())
     ax.grid(True)
     ax.set_ylabel("Views")
     lineformats = itertools.cycle(itertools.product(["-", "--", "-.", ":"],
