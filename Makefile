@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-PYTHON=PYTHONHASHSEED=12345 /home/xnovot32/miniconda3/bin/python3.6
+PYTHON=PYTHONHASHSEED=12345 /home/xnovot32/miniconda3/bin/python3.7
 PARALLEL=/packages/run.64/parallel-20130822/bin/parallel
 WEBPAGES=/www/lemma/projekty/mubeamer/index.html \
          /www/lemma/projekty/muletter/index.html \
