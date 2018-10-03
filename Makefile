@@ -28,7 +28,9 @@ urls: $(WEBPAGES)
 stats: urls
 	awk '{ print $$1 }' <$< | $(PARALLEL) --jobs=$(JOBS) --halt=2 -- '\
 	  URL={}; \
-	  printf "%s\t%d\n" `date --rfc-3339=date` `wget -q -O- $$URL \
-	    | xmllint -html -xpath "//div[@id='\''views_and_shares'\'']/a/text()" - 2>/dev/null \
-	    | sed -r -n "/[^ ]/s/ *([0-9]*) views */\1/p" - 2>/dev/null` >>stats/$${URL##*/}; \
+	  printf "%s\t%d\n" `date --rfc-3339=date` `\
+	    wget -q -O- $$URL | xmllint -html -xpath \
+	      "//div[contains(@class, '\''field-title'\'') and text() = '\''View Count'\'']/../div[2]/text()" \
+	      - 2>/dev/null` \
+	    >>stats/$${URL##*/}; \
 	  sleep $(SLEEP)'
