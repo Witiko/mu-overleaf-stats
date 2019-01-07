@@ -30,7 +30,7 @@ try:
 except OSError:
     pass
 for project, workplaces in projects.items():
-    fig, ax = plt.subplots(figsize=(15, 9))
+    fig, ax = plt.subplots(figsize=(15, 9.5))
     fig.suptitle(project)
     ax.xaxis.set_major_locator(MonthLocator())
     ax.xaxis.set_major_formatter(DateFormatter("%Y-%m-%d"))
