@@ -24,6 +24,7 @@ urls: $(WEBPAGES)
 	done | sed -r -e 's/( (data-(project|workplace)|href)="([^"]*)"){3}/&\n/g' \
              | sed -r -e 's/ (data-(project|workplace)|href)="([^"]*)"/\t\3/g' \
              | sed 's/^\t//' | sort -u -k 2 >$@
+	echo 'https://www.overleaf.com/latex/templates/cstug-bulletin-article/yjdcyxtkmxmz	cstug	cstug' >>$@
 
 stats: urls
 	awk '{ print $$1 }' <$< | $(PARALLEL) --jobs=$(JOBS) --halt=2 -- '\
